@@ -33,9 +33,8 @@ TRUTH TABLE
 ## symbol of Schemitt trigger
 
 <div align="center">
-    <img src="images/symbol.png" alt="schemitt trigger Symbol" width="">
-  
-   created in xschem 
+    <img src="images/Schmitt_symbol.png" alt="schemitt trigger Symbol" width="">
+  SYMBOL
    
 </div>
 
@@ -44,7 +43,7 @@ TRUTH TABLE
 ## Circuit Diagram 
 A Schmitt Trigger can be implemented using a CMOS configuration with 3 PMOS transistors and 3 NMOS transistors connected in a specific arrangement as shown in  circuit diagram. The circuit consists of a positive feedback network to provide hysteresis. The power supply is configured with +VDD connected to the drains of the PMOS transistors, while the sources of the NMOS transistors are connected to GND. The input is applied to the gates of the transistors, and the output is taken from the connection between the PMOS and NMOS transistors in the second stage. This configuration ensures that the circuit exhibits distinct upper and lower threshold voltages, providing noise immunity and stable output transitions.
 <div align="center">
-    <img src="images/schematicnot.png" alt=" schemitt trigger schematic" width="">
+    <img src="images/schemitttrigger.png" alt=" schemitt trigger schematic" width="">
   schematic diagram
 </div>
 
@@ -55,7 +54,7 @@ A Schmitt Trigger can be implemented using a CMOS configuration with 3 PMOS tran
  When the input voltage exceeds the upper threshold, Vut, the output switches LOW (logic 0). Conversely, when the input voltage drops below the lower threshold, Vlt, the output switches HIGH (logic 1). If the input voltage is between Vut and Vlt, the output remains in its current state, ensuring noise immunity and stable transitions.
 
 <div align="center">
-    <img src="images/wave.png" alt="schemitt trigger schematic" width="">
+    <img src="images/wave.png" alt="schemitt trigger schematic" width="5000">
   input output waveform
 </div>
 

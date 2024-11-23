@@ -114,6 +114,22 @@ This behavior is crucial in applications where noisy or slow-changing inputs mus
 
 ---
 
+# **DC Analysis of Schmitt Trigger**
+
+DC analysis is performed to determine the static behavior of the Schmitt Trigger by varying the input voltage (Vin) across a range and observing the corresponding output voltage (Vout). This simulation provides the **Voltage Transfer Characteristics (VTC)** curve, which highlights the circuit's switching thresholds: the **Upper Threshold Voltage (Vut)** and **Lower Threshold Voltage (Vlt)**. These thresholds define the hysteresis window, enabling the circuit to reject noise and ensure stable transitions.
+
+The analysis involves applying a DC sweep to the input voltage, typically from 0 to the supply voltage (VDD). The output voltage is measured to observe the transition regions where the circuit switches between logic HIGH and logic LOW states.
+
+This behavior is crucial in applications where noisy or slow-changing inputs must be converted into sharp, clean digital signals. The hysteresis ensures that minor fluctuations around the thresholds do not inadvertently toggle the output.
+
+<div align="center">
+    <img src="images/dc_analysis_schematic.png" alt="Schmitt Trigger DC Analysis Circuit" width="">
+    <p><strong>Circuit Diagram for DC Analysis</strong></p>
+</div>
+
+---
+
+
 
 ## Voltage Transfer Characteristics (VTC)
 
@@ -121,22 +137,28 @@ The **Voltage Transfer Characteristics (VTC)** plot shows how the output changes
 This hysteresis prevents false triggering caused by noise and ensures stable transitions between logic states.
 
 ---
-
 ## Parameters of the Schmitt Trigger
 
-| Parameter         | Description                                                                 | Value       | Unit | Technology | Condition               |
-|:-----------------:|:---------------------------------------------------------------------------:|:-----------:|:----:|:----------:|:-----------------------:|
-| **Technology**    | CMOS technology used                                                       | SkyWater 130nm | -   | SkyWater   | -                       |
-| **VCC**           | Supply voltage                                                            | 1.8         | V    | SkyWater   | -40°C to 125°C         |
-| **Propagation Delay (tpHL)** | Delay from input 50% rise to output 50% fall (high-to-low transition)  | ~61.65      | ps   | SkyWater   | -40°C to 125°C         |
-| **Propagation Delay (tpLH)** | Delay from input 50% fall to output 50% rise (low-to-high transition)  | ~224.37     | ps   | SkyWater   | -40°C to 125°C         |
-| **Rise Time (tr)**| Time taken for output to rise from 10% to 90% of its final high value       | ~305.95     | ps   | SkyWater   | -40°C to 125°C         |
-| **Fall Time (tf)**| Time taken for output to fall from 90% to 10% of its high value             | ~235.97     | ps   | SkyWater   | -40°C to 125°C         |
-| **Threshold Voltage (Vth)**| Minimum input voltage required to switch the output state            | ~0.7        | V    | SkyWater   | -40°C to 125°C         |
-| **Output High Voltage (Voh)** | Maximum voltage at the output during logic HIGH                  | ~5.0        | V    | SkyWater   | -40°C to 125°C         |
-| **Output Low Voltage (Vol)** | Minimum voltage at the output during logic LOW                   | ~0.0        | V    | SkyWater   | -40°C to 125°C         |
+| Parameter                    | Description                                                                 | Value       | Unit | Technology    | Condition               |
+|:----------------------------:|:---------------------------------------------------------------------------:|:-----------:|:----:|:-------------:|:-----------------------:|
+| **Threshold Voltage (Vth)**   | The minimum input voltage required to switch the output state. This is the voltage at which the output begins to change. It sets the lower threshold of the input voltage range. | 0.6         | V    | SkyWater 130nm| -40°C to 125°C          |
+| **Lower Threshold Voltage (Vlt)** | The minimum input voltage at which the output switches from HIGH to LOW. This defines the lower boundary of the hysteresis window. | 0.6        | V    | SkyWater 130nm| -40°C to 125°C          |
+| **Upper Threshold Voltage (Vht)** | The input voltage at which the output switches from LOW to HIGH. This defines the upper boundary of the hysteresis window. | 1.2        | V    | SkyWater 130nm| -40°C to 125°C          |
+| **Rise Time (tr)**            | The time taken for the output to rise from 10% to 90% of its final HIGH value. This is an important parameter for measuring the response speed of the circuit. | 305.95      | ps   | SkyWater 130nm| -40°C to 125°C          |
+| **Fall Time (tf)**            | The time taken for the output to fall from 90% to 10% of its final HIGH value. This is another key measure of circuit response time. | 235.97      | ps   | SkyWater 130nm| -40°C to 125°C          |
+| **Rise Time (tpl)**           | The time taken for the output to rise from 0% to 100% of its final HIGH value, typically used to describe the full rise characteristic. | 1         | ms   | SkyWater 130nm| -40°C to 125°C          |
+| **Fall Time (tph)**           | The time taken for the output to fall from 0% to 100% of its final LOW value, typically used to describe the full fall characteristic. | 1         | ms   | SkyWater 130nm| -40°C to 125°C          |
+| **Propagation Delay (tpHL)**  | The time delay from the input 50% rise to the output 50% fall, indicating the time it takes for the signal to transition from HIGH to LOW. | 61.65       | ps   | SkyWater 130nm| -40°C to 125°C          |
+| **Propagation Delay (tpLH)**  | The time delay from the input 50% fall to the output 50% rise, indicating the time it takes for the signal to transition from LOW to HIGH. | 224.37      | ps   | SkyWater 130nm| -40°C to 125°C          |
+| **Supply Voltage (Vcc)**      | The supply voltage that powers the Schmitt Trigger circuit. This voltage is used to define the operating range of the transistors. | 1.8         | V    | SkyWater 130nm| -40°C to 125°C          |
+| **Output High Voltage (Voh)** | The maximum voltage level output during a logic HIGH state. This is the voltage level when the Schmitt Trigger is outputting a logical "1". | 5.0         | V    | SkyWater 130nm| -40°C to 125°C          |
+| **Output Low Voltage (Vol)**  | The minimum voltage level output during a logic LOW state. This is the voltage level when the Schmitt Trigger is outputting a logical "0". | 0.0         | V    | SkyWater 130nm| -40°C to 125°C          |
+| **Noise Margin**              | The difference between the logic levels (Voh and Vol) and the threshold voltages (Vlt and Vht) that defines the noise tolerance of the circuit. | 0.6         | V   | SkyWater 130nm| -40°C to 125°C          |
+| **Hysteresis**                | The difference between the upper and lower threshold voltages (Vht - Vlt) that defines the noise rejection capacity of the circuit. | -           | V    | SkyWater 130nm| -40°C to 125°C          |
+| **Power Consumption**         | The total power consumed by the Schmitt Trigger during operation. This can be measured during simulations under different operating conditions. | -           | W    | SkyWater 130nm| -40°C to 125°C          |
 
 ---
+
 
 
 ## Conclusion  

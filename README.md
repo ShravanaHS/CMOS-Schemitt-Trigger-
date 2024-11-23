@@ -99,36 +99,97 @@ The Schmitt Trigger operates as follows:
 
 ---
 
+## **Delay Analysis of Schmitt Trigger**
+
+Delay analysis is performed to determine the dynamic behavior of the Schmitt Trigger by measuring the time taken for the output to transition in response to changes in the input. The parameters calculated include the **Propagation Delays** (tpHL and tpLH), which represent the circuit's performance and speed in transitioning between logic states.
+
+### **Procedure:**
+- A time-varying input signal, such as a square wave, is applied to the circuit.
+- The time delay is measured between the input signal's midpoint transition and the corresponding output signal's midpoint transition.
+
+### **Key Parameters Calculated:**
+- **tpLH (Propagation Delay - Low to High):** Time delay from the input falling to 50% (midpoint) to the output rising to 50%.  
+  - Calculated Value: **224.37ps**
+- **tpHL (Propagation Delay - High to Low):** Time delay from the input rising to 50% (midpoint) to the output falling to 50%.  
+  - Calculated Value: **61.65ps**
+- **Rise Time (tr):** Time taken for the output to rise from 10% to 90% of its maximum value.  
+  - Calculated Value: **305.95ps**
+- **Fall Time (tf):** Time taken for the output to fall from 90% to 10% of its maximum value.  
+  - Calculated Value: **235.97ps**
+
+### **Key Observations:**
+- **tpLH > tpHL:** Indicates the circuit takes longer to transition from LOW to HIGH compared to HIGH to LOW, likely due to circuit design and asymmetry in pull-up and pull-down networks.
+- **Rise and Fall Times:** These parameters highlight the sharpness of the output transitions, crucial for determining the circuit's effectiveness in high-speed operations.
+
+### **Analysis Overview:**
+Delay analysis highlights the circuit's speed and responsiveness under real-world conditions. These parameters are crucial for assessing the Schmitt Trigger's suitability for high-frequency applications, where minimizing delays is critical for reliable operation.
+
+<div align="center">
+    <img src="images/CSTDELAY.png" alt="Schmitt Trigger Delay Analysis Circuit" width="">
+    <p><strong>Circuit Diagram for Delay Analysis</strong></p>
+</div>
+
+---
+
+
 ## **DC Analysis of Schmitt Trigger**
 
-DC analysis is performed to determine the static behavior of the Schmitt Trigger by varying the input voltage (Vin) across a range and observing the corresponding output voltage (Vout). This simulation provides the **Voltage Transfer Characteristics (VTC)** curve, which highlights the circuit's switching thresholds: the **Upper Threshold Voltage (Vut)** and **Lower Threshold Voltage (Vlt)**. These thresholds define the hysteresis window, enabling the circuit to reject noise and ensure stable transitions.
+DC analysis is performed to determine the static behavior of the Schmitt Trigger by varying the input voltage (Vin) across a range and observing the corresponding output voltage (Vout). This simulation provides the **Voltage Transfer Characteristics (VTC)** curve, which highlights the circuit's switching thresholds: the **Upper Threshold Voltage (Vht)** and **Lower Threshold Voltage (Vlt)**. These thresholds define the hysteresis window, enabling the circuit to reject noise and ensure stable transitions.
 
-The analysis involves applying a DC sweep to the input voltage, typically from 0 to the supply voltage (VDD). The output voltage is measured to observe the transition regions where the circuit switches between logic HIGH and logic LOW states.
+### **Calculated Values:**
+- **Upper Threshold Voltage (Vht)** = **1.2V**  
+- **Lower Threshold Voltage (Vlt)** = **0.6V**  
+- **Threshold Voltage (Vth)** = **0.7V**  
+- **Hysteresis** = **Vht - Vlt = 0.6V**  
+- **Noise Margin** = **0.6V** (Determined using the difference between logic levels and threshold voltages)
 
-This behavior is crucial in applications where noisy or slow-changing inputs must be converted into sharp, clean digital signals. The hysteresis ensures that minor fluctuations around the thresholds do not inadvertently toggle the output.
+### **Key Observations from the DC Sweep:**
+- **Vth (Threshold Voltage)** defines the input voltage level at which the circuit switches from one state to another.
+- **Vht (Upper Threshold Voltage)** marks the input voltage at which the output transitions from LOW to HIGH.
+- **Vlt (Lower Threshold Voltage)** marks the input voltage at which the output transitions from HIGH to LOW.
+- The **Hysteresis** between **Vht** and **Vlt** ensures noise immunity by preventing rapid switching caused by small fluctuations in the input signal.
+
+### **Analysis Overview:**
+The DC sweep simulation involves incrementally increasing the input voltage and measuring the output voltage. This provides a clear **Voltage Transfer Characteristic (VTC)** curve. The hysteresis is observed as the difference in input voltages at which the circuit transitions between HIGH and LOW states, ensuring stable operation even with noisy inputs.
 
 <div align="center">
-    <img src="images/dc_analysis_schematic.png" alt="Schmitt Trigger DC Analysis Circuit" width="">
+    <img src="images/CSTDCANALYSYS.png" alt="Schmitt Trigger DC Analysis Circuit" width="">
     <p><strong>Circuit Diagram for DC Analysis</strong></p>
 </div>
 
 ---
 
-# **DC Analysis of Schmitt Trigger**
 
-DC analysis is performed to determine the static behavior of the Schmitt Trigger by varying the input voltage (Vin) across a range and observing the corresponding output voltage (Vout). This simulation provides the **Voltage Transfer Characteristics (VTC)** curve, which highlights the circuit's switching thresholds: the **Upper Threshold Voltage (Vut)** and **Lower Threshold Voltage (Vlt)**. These thresholds define the hysteresis window, enabling the circuit to reject noise and ensure stable transitions.
+## **Transfer Characteristics Analysis of Schmitt Trigger**
 
-The analysis involves applying a DC sweep to the input voltage, typically from 0 to the supply voltage (VDD). The output voltage is measured to observe the transition regions where the circuit switches between logic HIGH and logic LOW states.
+The transfer characteristics analysis of the Schmitt Trigger examines how the output voltage (Vout) responds to the input voltage (Vin) as it varies from 0 to the supply voltage (VDD). This analysis provides the **Voltage Transfer Characteristics (VTC)** curve, highlighting the circuit's hysteresis behavior.
 
-This behavior is crucial in applications where noisy or slow-changing inputs must be converted into sharp, clean digital signals. The hysteresis ensures that minor fluctuations around the thresholds do not inadvertently toggle the output.
+### **Procedure:**
+- A DC sweep is applied to the input voltage (Vin) across a range from 0 to VDD.
+- The output voltage (Vout) is recorded for each input voltage value.
+- The hysteresis window is analyzed by observing the switching points:
+  - **Vht (Higher Threshold Voltage):** Input voltage at which the output switches from LOW to HIGH.
+  - **Vlt (Lower Threshold Voltage):** Input voltage at which the output switches from HIGH to LOW.
+
+### **Key Parameters Calculated:**
+- **Vht (Higher Threshold Voltage):** 1.2V
+- **Vlt (Lower Threshold Voltage):** 0.6V
+- **Hysteresis (Vh):** Difference between Vht and Vlt.  
+  - **Calculated Value:** 0.6V
+
+### **Observations:**
+- The hysteresis window (Vht - Vlt) demonstrates the Schmitt Trigger's ability to reject noise and stabilize output transitions.
+- **Sharp Output Transitions:** The VTC curve shows distinct transition regions where the output switches states, ensuring reliable digital signal processing.
+
+### **Applications:**
+This analysis is crucial for circuits requiring noise immunity and clean transitions, such as clock signal generation and waveform shaping.
 
 <div align="center">
-    <img src="images/dc_analysis_schematic.png" alt="Schmitt Trigger DC Analysis Circuit" width="">
-    <p><strong>Circuit Diagram for DC Analysis</strong></p>
+    <img src="images/sim.png" alt="Schmitt Trigger Transfer Characteristics Circuit" width="">
+    <p><strong>Circuit Diagram for Transfer Characteristics Analysis</strong></p>
 </div>
 
 ---
-
 
 
 ## Voltage Transfer Characteristics (VTC)
@@ -165,4 +226,4 @@ This hysteresis prevents false triggering caused by noise and ensures stable tra
 
 This CMOS-based Schmitt Trigger effectively demonstrates noise immunity and stable output transitions, making it a crucial component in digital systems. The design is scalable for various CMOS processes and provides an excellent foundation for understanding hysteresis and bistable circuits.  
 
-Feel free to explore and contribute to the repository!  
+

@@ -1,97 +1,130 @@
 
+# CMOS-Based Schmitt Trigger
 
-# CMOS based schemitt trigger
+In this repository, I am designing and analyzing a **Schmitt Trigger** using the **SkyWater 130nm PDK Technology**.  
+The design is created using [xschem](https://xschem.sourceforge.io/stefan/index.html) for schematic entry, and its parameters (plots) are obtained through pre-layout simulations using [ngspice](https://ngspice.sourceforge.io/).  
+For the layout design, I am utilizing the [Magic VLSI Layout Tool](http://opencircuitdesign.com/magic/), a widely used open-source tool for IC design.
 
-In this repository, I am designing and analyzing a Schemitt Trigger using the SkyWater PDK 130nm Technology. 
-The design is created using <a href="https://xschem.sourceforge.io/stefan/index.html" target="_blank">xschem</a> for schematic design , and its parameters(plots) are obtained through pre-layout simulations using <a href="https://ngspice.sourceforge.io/" target="_blank">ngspice</a>.
-For the layout design I am utilizing the 
-<a href="http://opencircuitdesign.com/magic/" target="_blank">Magic VLSI Layout Tool</a>, 
-a widely used open-source tool for IC design.
+---
 
+## Abstract
 
-## Abstract 
+This repository focuses on the design, implementation, and analysis of a **CMOS-based Schmitt Trigger** using the SkyWater 130nm CMOS technology.  
+A Schmitt Trigger is a bistable circuit that introduces **hysteresis** to input signals. It converts noisy or slowly varying analog inputs into clean digital outputs, ensuring reliable transitions. This behavior is achieved through two distinct threshold voltages: an **upper threshold (Vut)** and a **lower threshold (Vlt)**. The hysteresis mechanism significantly improves noise immunity, making Schmitt Triggers essential in modern digital systems.
 
-This repository deals with the design and implementation of **CMOS based Schemitt Trigger** using SkyWater 130nm CMOS technology.
-A Schmitt Trigger is a bistable circuit that provides hysteresis for input signals. It operates by converting noisy or slowly varying analog inputs into clean digital outputs, ensuring reliable transitions. This behavior is achieved by setting two distinct threshold voltages for switching, improving noise immunity in digital systems.
+---
 
-Function
-The Schmitt Trigger operates by switching its output state based on two distinct threshold voltages, providing hysteresis. When the input voltage exceeds the upper threshold, Vut, the output switches LOW (logic 0). Conversely, when the input voltage drops below the lower threshold, Vlt, the output switches HIGH (logic 1). If the input voltage is between Vut and Vlt, the output remains in its current state, ensuring noise immunity and stable transitions.
-<div align="center">
-TRUTH TABLE
+## Functionality
 
+The Schmitt Trigger operates by switching its output state based on two threshold voltages:  
+
+1. **When the input voltage exceeds the upper threshold (Vut):** The output switches to LOW (logic 0).  
+2. **When the input voltage drops below the lower threshold (Vlt):** The output switches to HIGH (logic 1).  
+3. **When the input voltage lies between Vlt and Vut:** The output retains its previous state, ensuring stability against noise.  
+
+This functionality enables the Schmitt Trigger to clean up noisy signals and provide stable transitions, making it ideal for applications like signal conditioning and waveform shaping.
+
+---
+
+## Truth Table
 
 | Input Voltage Range         | Output State        | Description                                      |
-|:----------------------------|:--------------------|:-------------------------------------------------|
+|:----------------------------|:--------------------|:------------------------------------------------|
 | Input > Upper Threshold (Vut) | LOW (logic 0)       | Output switches to LOW when input exceeds Vut.   |
 | Input < Lower Threshold (Vlt) | HIGH (logic 1)      | Output switches to HIGH when input drops below Vlt. |
-| Vlt ≤ Input ≤ Vlt             | Retains Previous State | Output remains unchanged to prevent noise triggering. |
+| Vlt ≤ Input ≤ Vut            | Retains Previous State | Output remains unchanged to prevent noise triggering. |
 
-  
-</div>
-<br> <br>
+---
 
-## symbol of Schemitt trigger
+## Symbol of Schmitt Trigger
 
 <div align="center">
-    <img src="images/Schmitt_symbol.png" alt="schemitt trigger Symbol" width="">
-  SYMBOL
-   
+    <img src="images/Schmitt_symbol.png" alt="Schmitt Trigger Symbol" width="">
+    <p><strong>Symbol of Schmitt Trigger</strong></p>
 </div>
 
-<br> <br> 
+---
 
-## Circuit Diagram 
-A Schmitt Trigger can be implemented using a CMOS configuration with 3 PMOS transistors and 3 NMOS transistors connected in a specific arrangement as shown in  circuit diagram. The circuit consists of a positive feedback network to provide hysteresis. The power supply is configured with +VDD connected to the drains of the PMOS transistors, while the sources of the NMOS transistors are connected to GND. The input is applied to the gates of the transistors, and the output is taken from the connection between the PMOS and NMOS transistors in the second stage. This configuration ensures that the circuit exhibits distinct upper and lower threshold voltages, providing noise immunity and stable output transitions.
-<div align="center">
-    <img src="images/schemitttrigger.png" alt=" schemitt trigger schematic" width="">
-  schematic diagram
-</div>
+## Circuit Diagram
 
-<br> <br> 
+A **Schmitt Trigger** can be implemented using a CMOS configuration with **3 PMOS transistors** and **3 NMOS transistors**, connected in a specific arrangement as shown in the circuit diagram.  
 
-## working
+- **Power Supply:** +VDD is connected to the drains of the PMOS transistors, while the sources of the NMOS transistors are connected to GND.
+- **Input:** The input signal is applied to the gates of the transistors.
+- **Output:** The output is taken from the connection between the PMOS and NMOS transistors in the second stage.  
 
- When the input voltage exceeds the upper threshold, Vut, the output switches LOW (logic 0). Conversely, when the input voltage drops below the lower threshold, Vlt, the output switches HIGH (logic 1). If the input voltage is between Vut and Vlt, the output remains in its current state, ensuring noise immunity and stable transitions.
+This configuration introduces positive feedback to create hysteresis, ensuring noise immunity and stable output transitions.
 
 <div align="center">
-    <img src="images/wave.png" alt="schemitt trigger schematic" width="5000">
-  input output waveform
+    <img src="images/cstschematic.png" alt="Schmitt Trigger Schematic" width="">
+    <p><strong>CMOS-Based Schmitt Trigger Circuit</strong></p>
 </div>
 
-<br> <br> 
+---
 
-##  Analysis of schemitt trigger
+## Input Signal Generation and Noise Injection
+
+To analyze the functionality of the Schmitt Trigger, a **voltage divider network** is used to merge a square wave digital input signal with a high-frequency sine wave noise signal. This creates a distorted message signal (Vin), simulating real-world noise conditions for testing.  
 
 <div align="center">
-    <img src="images/DC analysis.png" alt="inverter schematic" width="">
-  
- VTC Curve
+    <img src="images/noisde.png" alt="Noise Signal Generation" width="">
+    <p><strong>Voltage Divider Network for Noise Signal</strong></p>
 </div>
 
-<br> <br> 
-A voltage transfer characteristics paints a plot that shows the behavior of a device when it's input is changed(full swing). It shows what happens to the output as input changes. In our case, for an inverter we can see a plot that is like a square wave(non ideal), that changes it's nature around 0.9(ideally) volts of input which is known as the ***Threshold voltage(Vm)***. Deviating so much from this threshold voltage might cause Noise margin issue. One can say that there are like 3 regions in the VTC curve, the portion where output is high, the place of transistion and the one where the output goes low. But actually there are five regions of operation and they are based on the working of inverter constituents, that is the NMOS and the PMOS transistors with respect to the change in the input potential. which can be observed from the below picture.
+---
+
+## Analysis of Schmitt Trigger
+
+The distorted input signal (Vin) is applied to the gates of the CMOS transistors, and the output (Vout) is measured. The Schmitt Trigger effectively removes the noise, thanks to its hysteresis behavior, producing a clean digital output.  
+
+<div align="center">
+    <img src="images/noiseschematic.png" alt="Schmitt Trigger Analysis" width="">
+    <p><strong>Circuit Diagram for Analysis</strong></p>
+</div>
+
+---
+
+## Working Principle
+
+The Schmitt Trigger operates as follows:  
+
+1. When the input voltage exceeds the **upper threshold (Vut):** The output switches to LOW (logic 0).  
+2. When the input voltage drops below the **lower threshold (Vlt):** The output switches to HIGH (logic 1).  
+3. When the input voltage lies between **Vut** and **Vlt:** The output retains its previous state, ensuring noise immunity and stable transitions.  
+
+<div align="center">
+    <img src="images/sim.png" alt="Schmitt Trigger Input-Output Waveform" width="">
+    <p><strong>Input-Output Waveform of Schmitt Trigger</strong></p>
+</div>
+
+---
+
+## Voltage Transfer Characteristics (VTC)
+
+The **Voltage Transfer Characteristics (VTC)** plot shows how the output changes as the input varies over its full swing. For a Schmitt Trigger, this curve demonstrates hysteresis due to the distinct **upper (Vut)** and **lower (Vlt)** thresholds.  
+This hysteresis prevents false triggering caused by noise and ensures stable transitions between logic states.
+
+---
+
+## Parameters of the Schmitt Trigger
+
+| Parameter         | Description                                                                 | Value       | Unit | Technology | Condition               |
+|:-----------------:|:---------------------------------------------------------------------------:|:-----------:|:----:|:----------:|:-----------------------:|
+| **Technology**    | CMOS technology used                                                       | SkyWater 130nm | -   | SkyWater   | -                       |
+| **VCC**           | Supply voltage                                                            | 1.8         | V    | SkyWater   | -40°C to 125°C         |
+| **Propagation Delay (tpHL)** | Delay from input 50% rise to output 50% fall (high-to-low transition)  | ~61.65      | ps   | SkyWater   | -40°C to 125°C         |
+| **Propagation Delay (tpLH)** | Delay from input 50% fall to output 50% rise (low-to-high transition)  | ~224.37     | ps   | SkyWater   | -40°C to 125°C         |
+| **Rise Time (tr)**| Time taken for output to rise from 10% to 90% of its final high value       | ~305.95     | ps   | SkyWater   | -40°C to 125°C         |
+| **Fall Time (tf)**| Time taken for output to fall from 90% to 10% of its high value             | ~235.97     | ps   | SkyWater   | -40°C to 125°C         |
+| **Threshold Voltage (Vth)**| Minimum input voltage required to switch the output state            | ~0.7        | V    | SkyWater   | -40°C to 125°C         |
+| **Output High Voltage (Voh)** | Maximum voltage at the output during logic HIGH                  | ~5.0        | V    | SkyWater   | -40°C to 125°C         |
+| **Output Low Voltage (Vol)** | Minimum voltage at the output during logic LOW                   | ~0.0        | V    | SkyWater   | -40°C to 125°C         |
+
+---
 
 
+## Conclusion  
 
-**DC analysis would be used to plot a Voltage Transfer Characteristics (VTC) curve for the circuit**. It will sweep the value of Vin from high to low to determine the working of circuit with respect to different voltage levels in the input. The following plot is observed when simulated :
+This CMOS-based Schmitt Trigger effectively demonstrates noise immunity and stable output transitions, making it a crucial component in digital systems. The design is scalable for various CMOS processes and provides an excellent foundation for understanding hysteresis and bistable circuits.  
 
-
-
-
-
-## NOT Gate Parameters 
-
-|Parameter | Description |	Min |	Average |	Max |	Unit |	Condition |
-|:--------:|:------------:|:----:|:---:|:-----:|:----:|:---------:|
-| Technology Used | Skywater 130nm | - |  -   |  -  | - | - |
-| VCC | Supply Voltage | - | 1.8 | - | V | T=-40C to 125C |
-| tpHL | **Propagation Delay High to Low**: Delay from input 50% rise to output 50% fall (high-to-low transition) | -58.50| -61.65 | -63.64 | ps | T=-40C to 125C |
-| tpLH | **Propagation Delay Low to High**: Delay from input 50% fall to output 50% rise (low-to-high transition) | 216.87 | 224.37 | 236.40 | ps | T=-40C to 125C |
-| tr | **Rise time**: time taken for the output to go from 10% (0.5V) to 90% (4.5V) of its final high value | 289.90 | 305.95 | 329.12 | ps | T=-40C to 125C |
-| tf | **Fall Time**: Time taken for the output signal to drop from 90% (4.5V) of its high level (VCC) to 10% (0.5V) of its high level| 217.40 | 235.97 | 260.87 | ps | T=-40C to 125C |
-| Vth | **Threshold Voltage**: The threshold voltage of a MOSFET is the minimum gate-to-source voltage(Vgs) required to create a conducting path between the source and drain terminals | 0.4 | 0.7 | - | V | T=-40C to 125C |
-| Voh | Output high voltage | 4.919 | 5.000 | 5.089 | V | A != B at T=-40C to 125C |
-| Vol | Output low voltage | -0.041 | 0.000 | 0.001 | V | A = B at T=-40C to 125C |
-
-<br> <br>
-<br>
+Feel free to explore and contribute to the repository!  

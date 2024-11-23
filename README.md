@@ -99,6 +99,22 @@ The Schmitt Trigger operates as follows:
 
 ---
 
+## **DC Analysis of Schmitt Trigger**
+
+DC analysis is performed to determine the static behavior of the Schmitt Trigger by varying the input voltage (Vin) across a range and observing the corresponding output voltage (Vout). This simulation provides the **Voltage Transfer Characteristics (VTC)** curve, which highlights the circuit's switching thresholds: the **Upper Threshold Voltage (Vut)** and **Lower Threshold Voltage (Vlt)**. These thresholds define the hysteresis window, enabling the circuit to reject noise and ensure stable transitions.
+
+The analysis involves applying a DC sweep to the input voltage, typically from 0 to the supply voltage (VDD). The output voltage is measured to observe the transition regions where the circuit switches between logic HIGH and logic LOW states.
+
+This behavior is crucial in applications where noisy or slow-changing inputs must be converted into sharp, clean digital signals. The hysteresis ensures that minor fluctuations around the thresholds do not inadvertently toggle the output.
+
+<div align="center">
+    <img src="images/dc_analysis_schematic.png" alt="Schmitt Trigger DC Analysis Circuit" width="">
+    <p><strong>Circuit Diagram for DC Analysis</strong></p>
+</div>
+
+---
+
+
 ## Voltage Transfer Characteristics (VTC)
 
 The **Voltage Transfer Characteristics (VTC)** plot shows how the output changes as the input varies over its full swing. For a Schmitt Trigger, this curve demonstrates hysteresis due to the distinct **upper (Vut)** and **lower (Vlt)** thresholds.  

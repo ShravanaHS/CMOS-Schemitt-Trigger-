@@ -1,0 +1,18 @@
+* C:\FOSSEE\cmost\cmost.cir
+
+* EESchema Netlist Version 1.1 (Spice format) creation date: 03/07/25 23:30:20
+
+* To exclude a component from the Spice Netlist add [Spice_Netlist_Enabled] user FIELD set to: N
+* To reorder the component spice node sequence add [Spice_Node_Sequence] user FIELD and define sequence: 2,1,0
+
+* Sheet Name: /
+v2  vin GND sine		
+v3  Net-_M3-Pad1_ GND DC		
+M2  Net-_M1-Pad3_ vin GND GND mosfet_n		
+M1  vout vin Net-_M1-Pad3_ GND mosfet_n		
+M6  Net-_M3-Pad1_ vout Net-_M1-Pad3_ GND mosfet_n		
+M3  Net-_M3-Pad1_ vin Net-_M3-Pad3_ Net-_M3-Pad1_ mosfet_p		
+M4  Net-_M3-Pad3_ vin vout Net-_M3-Pad1_ mosfet_p		
+M5  Net-_M3-Pad3_ vout GND Net-_M3-Pad1_ mosfet_p		
+
+.end
